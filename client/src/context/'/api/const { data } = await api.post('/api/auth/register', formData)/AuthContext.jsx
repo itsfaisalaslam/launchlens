@@ -79,7 +79,7 @@ export function AuthProvider({ children }) {
     setAuthError('')
 
     try {
-      const { data } = await api.post('/auth/login', formData)
+      const { data } = await api.post('/api/auth/login', formData)
       saveAuthData(data)
       return data
     } catch (error) {
