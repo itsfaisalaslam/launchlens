@@ -61,7 +61,7 @@ export function AuthProvider({ children }) {
     setAuthError('')
 
     try {
-      const { data } = await api.post('/auth/register', formData)
+      const { data } = await api.post('/api/auth/register', formData)
       saveAuthData(data)
       return data
     } catch (error) {
@@ -79,7 +79,7 @@ export function AuthProvider({ children }) {
     setAuthError('')
 
     try {
-      const { data } = await api.post('/auth/login', formData)
+      const { data } = await api.post('/api/auth/login', formData)
       saveAuthData(data)
       return data
     } catch (error) {
