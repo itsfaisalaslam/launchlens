@@ -18,11 +18,15 @@ const app = express()
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'https://launchlens-beta.vercel.app',
+      'https://launchlens-gahp88ae1-itsfaisalaslams-projects.vercel.app',
+    ],
     credentials: true,
   }),
 )
-app.use(express.json())
+use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
