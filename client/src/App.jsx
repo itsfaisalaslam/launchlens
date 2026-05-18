@@ -25,6 +25,7 @@ function App() {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/compare" element={<CompareIdeas />} />
             <Route path="/mentor" element={<MentorChat />} />
+            <Route path="/submit" element={<SubmitIdea />} />
             <Route path="/submit-idea" element={<SubmitIdea />} />
             <Route path="/report/:reportId" element={<ReportDetails />} />
             <Route path="/reports/:reportId" element={<ReportDetails />} />

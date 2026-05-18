@@ -98,7 +98,7 @@ function Home() {
                 <Link to="/register" className="premium-button">
                   Get Started
                 </Link>
-                <Link to="/submit-idea" className="premium-button-secondary">
+                <Link to="/submit" className="premium-button-secondary">
                   Submit Idea
                 </Link>
               </div>
