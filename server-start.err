@@ -1,1 +1,0 @@
-[AI] Gemini request failed | model=gemini-1.5-flash | status=404 | message=[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is

@@ -50,15 +50,13 @@ app.use(errorHandler)
 const startServer = async () => {
   try {
     await connectDB()
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`)
+    })
   } catch (error) {
-    console.warn(
-      `MongoDB connection skipped during startup: ${error.message}`,
-    )
+    console.error('MongoDB connection failed:', error)
+    process.exit(1)
   }
-
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-  })
 }
 
 startServer()
