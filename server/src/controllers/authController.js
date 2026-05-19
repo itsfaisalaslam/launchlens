@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import asyncHandler from '../services/asyncHandler.js'
 import User from '../models/User.js'
 import generateToken from '../services/generateToken.js'
@@ -15,30 +16,44 @@ const buildAuthResponse = (user) => ({
 })
 
 export const registerUser = asyncHandler(async (req, res, next) => {
-  const { name, email, password } = req.body
+  try {
+    const { name, email, password } = req.body
 
-  if (!name || !email || !password) {
-    res.status(400)
-    throw new Error('Name, email, and password are required')
+    if (!name || !email || !password) {
+      res.status(400)
+      throw new Error('Name, email, and password are required')
+    }
+
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({ message: 'Database not connected' })
+    }
+
+    const existingUser = await User.findOne({ email: email.toLowerCase() })
+
+    if (existingUser) {
+      res.status(409)
+      throw new Error('User already exists with this email')
+    }
+
+    const user = await User.create({
+      name,
+      email,
+      password,
+    })
+
+    res.status(201).json({
+      ...buildAuthResponse(user),
+      message: 'User registered successfully',
+    })
+  } catch (error) {
+    console.error('Register error:', {
+      message: error.message,
+      stack: error.stack,
+      readyState: mongoose.connection.readyState,
+      email: req.body?.email,
+    })
+    throw error
   }
-
-  const existingUser = await User.findOne({ email: email.toLowerCase() })
-
-  if (existingUser) {
-    res.status(409)
-    throw new Error('User already exists with this email')
-  }
-
-  const user = await User.create({
-    name,
-    email,
-    password,
-  })
-
-  res.status(201).json({
-    ...buildAuthResponse(user),
-    message: 'User registered successfully',
-  })
 })
 
 export const loginUser = asyncHandler(async (req, res, next) => {

@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
+    bufferCommands: false,
     timestamps: true,
   },
 )
